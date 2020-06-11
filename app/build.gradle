@@ -1,0 +1,104 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.zhouchen.application"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "com.zhouchen.test.TestAppInjectingRunner"
+        testHandleProfiling true
+        testFunctionalTest true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "6g"
+        preDexLibraries true
+        maxProcessCount 16
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+
+        test {
+            java.srcDirs += [
+                    'src/test/kotlin'
+            ]
+        }
+
+        androidTest {
+            java.srcDirs += [
+                    'src/androidTest/kotlin'
+            ]
+        }
+    }
+
+    lintOptions {
+        abortOnError true
+        lintConfig file('lint.xml')
+    }
+
+    testOptions {
+        animationsDisabled = true
+        unitTests.includeAndroidResources = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation                  project(':activity')
+    implementation                  project(':sdk')
+
+    implementation                  rootProject.ext.libraries.kotlinStdlib
+    implementation                  rootProject.ext.libraries.androidxCore
+    implementation                  rootProject.ext.libraries.appCompat
+    implementation                  rootProject.ext.libraries.materialDesign
+
+    implementation                  rootProject.ext.libraries.rxandroid
+    implementation                  rootProject.ext.libraries.rxjava
+
+    // Dagger 2 core
+    implementation                  rootProject.ext.libraries.dagger
+    kapt                            rootProject.ext.annotationLibraries.daggerCompiler
+
+    // Dagger 2 android
+    implementation                  rootProject.ext.libraries.daggerAndroid
+    implementation                  rootProject.ext.libraries.daggerAndroidSupport
+    kapt                            rootProject.ext.annotationLibraries.daggerAndroidProcessor
+
+    testImplementation              rootProject.ext.testLibraries.junit
+
+    kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler
+    androidTestImplementation       rootProject.ext.testLibraries.xJunit
+    androidTestImplementation       rootProject.ext.testLibraries.xJunitKtx
+    androidTestImplementation       rootProject.ext.testLibraries.xTruth
+    androidTestImplementation       rootProject.ext.testLibraries.espressoCore
+    androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
+    androidTestImplementation       rootProject.ext.testLibraries.espressoContrib
+
+}

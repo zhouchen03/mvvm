@@ -1,0 +1,6 @@
+<lint>
+    <issue id="ContentDescription">
+        <!-- Don't care about accessibility issues -->
+        <ignore regexp="res/*"/>
+    </issue>
+</lint>

@@ -1,0 +1,36 @@
+apply from: "../library_build.gradle"
+
+android {
+
+    defaultConfig {
+        testInstrumentationRunner "com.zhouchen.test.TestAppInjectingRunner"
+    }
+
+    sourceSets {
+        androidTest {
+            java.srcDirs += [
+                    'src/androidTest/kotlin',
+                    'src/androidTest/java'
+            ]
+        }
+    }
+
+    testOptions {
+        animationsDisabled = true
+        unitTests.includeAndroidResources = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation                  rootProject.ext.libraries.appCompat
+    implementation                  rootProject.ext.libraries.materialDesign
+
+    kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler
+    androidTestImplementation       rootProject.ext.testLibraries.xJunit
+    androidTestImplementation       rootProject.ext.testLibraries.xJunitKtx
+    androidTestImplementation       rootProject.ext.testLibraries.xTruth
+    androidTestImplementation       rootProject.ext.testLibraries.espressoCore
+    androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
+    androidTestImplementation       rootProject.ext.testLibraries.espressoContrib
+}

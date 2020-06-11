@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += [
+                'src/main/kotlin',
+                'src/main/java'
+                ]
+
+        test {
+            java.srcDirs += [
+                    'src/test/kotlin',
+                    'src/test/java'
+            ]
+        }
+    }
+
+    lintOptions {
+        abortOnError true
+        lintConfig file('../app/lint.xml')
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            testCoverageEnabled (project.hasProperty('coverage'))
+            //Crashlytics will generate a new build id for every build.
+            //This can (and should) be disabled for debug build
+            ext.alwaysUpdateBuildId = false
+            ext.enableCrashlytics = false
+        }
+        release {
+            minifyEnabled true
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation                  rootProject.ext.libraries.kotlinStdlib
+    implementation                  rootProject.ext.libraries.androidxCore
+
+    // Dagger 2 core
+    implementation                  rootProject.ext.libraries.dagger
+    kapt                            rootProject.ext.annotationLibraries.daggerCompiler
+
+    // Dagger 2 android
+    implementation                  rootProject.ext.libraries.daggerAndroid
+    implementation                  rootProject.ext.libraries.daggerAndroidSupport
+    kapt                            rootProject.ext.annotationLibraries.daggerAndroidProcessor
+
+    testImplementation              rootProject.ext.testLibraries.junit
+
+}
