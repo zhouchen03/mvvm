@@ -61,6 +61,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation                  rootProject.ext.libraries.kotlinStdlib
     implementation                  rootProject.ext.libraries.androidxCore
+    implementation                  rootProject.ext.libraries.rxjava
+    implementation                  rootProject.ext.libraries.rxandroid
 
     // Dagger 2 core
     implementation                  rootProject.ext.libraries.dagger

@@ -1,5 +1,7 @@
 include ':app'
 include ':activity'
+include ':base'
 include ':ui'
-include ':sdk'
+include ':datalayer'
+include ':repository'
 rootProject.name = "My Application"

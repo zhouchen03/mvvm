@@ -2,8 +2,8 @@ package com.zhouchen.test.di.module
 
 import android.app.Application
 import android.content.Context
-import com.zhouchen.application.di.scopes.AppScope
-import com.zhouchen.sdk.di.subcomponent.AppSubcomponent
+import com.zhouchen.base.di.scopes.AppScope
+import com.zhouchen.base.di.subcomponent.AppSubcomponent
 import dagger.Module
 import dagger.Provides
 

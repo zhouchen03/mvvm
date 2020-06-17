@@ -1,9 +1,9 @@
 ext {
-    minSdkVersion                       = 21
+    minSdkVersion                       = 26
     compileSdkVersion                   = 28
     targetSdkVersion                    = 28
     gradleVersion                       = "4.0.0"
-    kotlinVersion                       = "1.3.40"
+    kotlinVersion                       = "1.3.72"
 
     versionCode                         = 1
     versionName                         = "1.0.0"
@@ -16,13 +16,22 @@ ext {
     ]
 
     // Android
-    androidxCoreVersion                 = "1.1.0"
+    androidxCoreVersion                 = "1.3.0"
     androidxAppcompatVersion            = "1.1.0"
+    androidxRecyclerViewVersion         = "1.0.0"
+    androidxConstraintLayoutVersion     = "1.1.3"
+    androidxCardViewVersion             = "1.0.0"
     MaterialDesignVersion               = "1.0.0"
+    lifecycleVersion                    = '1.1.1'
+    roomVersion                         = '1.1.1'
+
+    retrofitVersion                     = "2.4.0"
+    okhttpVersion                       = "3.9.1"
+    gsonVersion                         = "2.8.5"
 
     // Java
-    rxJavaVersion                       = "1.3.8"
-    rxAndroidVersion                    = "1.2.1"
+    rxJavaVersion                       = "2.2.0"
+    rxAndroidVersion                    = "2.1.0"
     daggerVersion                       = "2.24"
 
     // Testing
@@ -38,11 +47,27 @@ ext {
             kotlinStdlib                : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",                             // rootProject.ext.libraries.kotlinStdlib
             androidxCore                : "androidx.core:core-ktx:${androidxCoreVersion}",
             appCompat                   : "androidx.appcompat:appcompat:${androidxAppcompatVersion}",                                          // rootProject.ext.libraries.appCompat
+            cardview                    : "androidx.cardview:cardview:${androidxCardViewVersion}",                                             // rootProject.ext.libraries.cardview
+            recyclerview                : "androidx.recyclerview:recyclerview:${androidxRecyclerViewVersion}",                                 // rootProject.ext.libraries.recyclerview
+            constraintLayout            : "androidx.constraintlayout:constraintlayout:${androidxConstraintLayoutVersion}",                     // rootProject.ext.libraries.constraintLayout
             materialDesign              : "com.google.android.material:material:${MaterialDesignVersion}",                              // rootProject.ext.libraries.designSupport
 
-            rxandroid                   : "io.reactivex:rxandroid:${rxAndroidVersion}",                                                 // rootProject.ext.libraries.rxandroid
-            rxjava                      : "io.reactivex:rxjava:${rxJavaVersion}",                                                       // rootProject.ext.libraries.rxjava
+            lifecycle                   : "android.arch.lifecycle:extensions:${lifecycleVersion}",
+            room                        : "android.arch.persistence.room:runtime:${roomVersion}",
+            roomCompiler                : "android.arch.persistence.room:compiler:${roomVersion}",
 
+            // rxJava
+            rxandroid                   : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",                                                 // rootProject.ext.libraries.rxandroid
+            rxjava                      : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",                                                       // rootProject.ext.libraries.rxjava
+
+            // Retrofit
+            retrofit                    : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitAdapter             : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitConverter           : "com.squareup.retrofit2:converter-moshi:${retrofitVersion}",
+            okhttp                      : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+            gson                        : "com.google.code.gson:gson:${gsonVersion}",
+
+            // dagger
             dagger                      : "com.google.dagger:dagger:${daggerVersion}",                                                  // rootProject.ext.libraries.dagger
             daggerAndroid               : "com.google.dagger:dagger-android:${daggerVersion}",                                          // rootProject.ext.libraries.daggerAndroid
             daggerAndroidSupport        : "com.google.dagger:dagger-android-support:${daggerVersion}",                                  // rootProject.ext.libraries.daggerAndroidSupport

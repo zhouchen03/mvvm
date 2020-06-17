@@ -1,9 +1,12 @@
 package com.zhouchen.application.di.module
 
-import android.app.Application
 import android.content.Context
-import com.zhouchen.application.di.scopes.AppScope
-import com.zhouchen.sdk.di.subcomponent.AppSubcomponent
+import com.zhouchen.application.App
+import com.zhouchen.application.Config
+import com.zhouchen.base.di.scopes.AppScope
+import com.zhouchen.datalayer.api.IConfig
+import com.zhouchen.base.di.subcomponent.AppSubcomponent
+import com.zhouchen.base.ui.IApp
 import dagger.Module
 import dagger.Provides
 
@@ -16,7 +19,18 @@ import dagger.Provides
 class AppModule {
     @Provides
     @AppScope
-    fun provideContext(application: Application): Context {
+    fun provideContext(application: App): Context {
         return application.applicationContext
+    }
+    @Provides
+    @AppScope
+    fun provideApp(application: App): IApp {
+        return application
+    }
+
+    @Provides
+    @AppScope
+    fun provideConfig(context: Context): IConfig {
+        return Config(context)
     }
 }

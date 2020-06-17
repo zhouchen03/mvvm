@@ -1,6 +1,17 @@
 apply from: "../ui_build.gradle"
 
+android {
+    buildFeatures {
+        dataBinding true
+    }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    api                             project(':base')
     implementation                  project(':ui')
+    implementation                  project(':datalayer')
+
+    // LiveData & ViewModel
+    implementation                  rootProject.ext.libraries.lifecycle
 }

@@ -1,21 +1,23 @@
 package com.zhouchen.application.di.component
 
-import android.app.Application
+import com.zhouchen.repository.di.module.AccessModule
 import com.zhouchen.application.App
 import com.zhouchen.application.di.module.AppModule
-import com.zhouchen.application.di.scopes.AppScope
-import com.zhouchen.sdk.di.component.IAppComponent
+import com.zhouchen.base.di.scopes.AppScope
+import com.zhouchen.base.di.component.IAppComponent
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 
 @AppScope
-@Component(modules = [AndroidInjectionModule::class, AppModule::class])
+@Component(modules = [AndroidInjectionModule::class,
+    AppModule::class,
+    AccessModule::class])
 interface AppComponent : IAppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: Application): Builder
+        fun application(application: App): Builder
         fun build(): AppComponent
     }
 

@@ -21,6 +21,15 @@ android {
         testInstrumentationRunner "com.zhouchen.test.TestAppInjectingRunner"
         testHandleProfiling true
         testFunctionalTest true
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
     }
 
     buildTypes {
@@ -72,15 +81,19 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation                  project(':activity')
-    implementation                  project(':sdk')
+    implementation                  project(':repository')
 
     implementation                  rootProject.ext.libraries.kotlinStdlib
     implementation                  rootProject.ext.libraries.androidxCore
     implementation                  rootProject.ext.libraries.appCompat
     implementation                  rootProject.ext.libraries.materialDesign
 
+    implementation                  rootProject.ext.libraries.room
+    kapt                            rootProject.ext.libraries.roomCompiler
+
     implementation                  rootProject.ext.libraries.rxandroid
     implementation                  rootProject.ext.libraries.rxjava
+    implementation                  rootProject.ext.libraries.retrofit
 
     // Dagger 2 core
     implementation                  rootProject.ext.libraries.dagger

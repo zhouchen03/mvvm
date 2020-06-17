@@ -1,7 +1,6 @@
 apply from: "../library_build.gradle"
 
 android {
-
     defaultConfig {
         testInstrumentationRunner "com.zhouchen.test.TestAppInjectingRunner"
     }
@@ -24,6 +23,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation                  rootProject.ext.libraries.appCompat
+    implementation                  rootProject.ext.libraries.cardview
+    implementation                  rootProject.ext.libraries.recyclerview
+    implementation                  rootProject.ext.libraries.constraintLayout
     implementation                  rootProject.ext.libraries.materialDesign
 
     kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler

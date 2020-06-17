@@ -1,0 +1,17 @@
+apply from: "../library_build.gradle"
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api                             project(':datalayer')
+
+    implementation                  rootProject.ext.libraries.room
+    kapt                            rootProject.ext.libraries.roomCompiler
+
+    // Retrofit
+    implementation                  rootProject.ext.libraries.retrofit
+    implementation                  rootProject.ext.libraries.retrofitAdapter
+    implementation                  rootProject.ext.libraries.retrofitConverter
+    implementation                  rootProject.ext.libraries.okhttp
+    implementation                  rootProject.ext.libraries.gson
+
+}

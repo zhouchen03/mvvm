@@ -2,7 +2,7 @@ package com.zhouchen.test.di.component
 
 import android.app.Application
 import com.zhouchen.application.di.component.AppComponent
-import com.zhouchen.application.di.scopes.AppScope
+import com.zhouchen.base.di.scopes.AppScope
 import com.zhouchen.test.TestApp
 import com.zhouchen.test.di.module.TestAppModule
 import dagger.BindsInstance
