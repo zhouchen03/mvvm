@@ -18,6 +18,7 @@ class SampleListAdapter(private val app : IApp): RecyclerView.Adapter<SampleList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.setLast(position == itemCount -1)
         holder.bind(sampleList[position])
     }
 
@@ -32,10 +33,20 @@ class SampleListAdapter(private val app : IApp): RecyclerView.Adapter<SampleList
 
     class ViewHolder(app : IApp, private val binding: ItemSampleBinding):RecyclerView.ViewHolder(binding.root){
         private val viewModel = SampleViewModel(app)
+        private var mLast: Boolean = false
 
         fun bind(sample:Sample){
             viewModel.bind(sample)
             binding.viewModel = viewModel
+        }
+
+        //for testing
+        fun getLast() :Boolean {
+            return mLast
+        }
+
+        fun setLast(last: Boolean) {
+            mLast = last
         }
     }
 }

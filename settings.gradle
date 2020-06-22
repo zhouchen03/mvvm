@@ -4,4 +4,4 @@ include ':base'
 include ':ui'
 include ':datalayer'
 include ':repository'
-rootProject.name = "My Application"
+rootProject.name = "mvvm"

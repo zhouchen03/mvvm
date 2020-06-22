@@ -41,6 +41,9 @@ ext {
     xJunitVersion                       = "1.1.1"
     xTruthVersion                       = "1.2.0"
     xEspressoVersion                    = "3.2.0"
+    testRulesVersion                    = "1.1.1"
+    testRunnerVersion                   = "1.1.1"
+
     XAndroidSupportUiautomatorVersion   = "2.2.0"
 
     libraries = [
@@ -80,13 +83,15 @@ ext {
     ]
 
     testLibraries = [
-            junit                       : "junit:junit:${junitVersion}",                                                                // rootProject.ext.testLibraries.junit
-            xJunit                      : "androidx.test.ext:junit:${xJunitVersion}",                                                   // rootProject.ext.testLibraries.xJunit
-            xJunitKtx                   : "androidx.test.ext:junit-ktx:${xJunitVersion}",                                               // rootProject.ext.testLibraries.xJunitKtx
-            xTruth                      : "androidx.test.ext:truth:${xTruthVersion}",                                                   // rootProject.ext.testLibraries.xTruth
-            uiautomator                 : "androidx.test.uiautomator:uiautomator:${XAndroidSupportUiautomatorVersion}",                 // rootProject.ext.testLibraries.uiautomator
-            espressoCore                : "androidx.test.espresso:espresso-core:${xEspressoVersion}",                                   // rootProject.ext.testLibraries.espressoCore
-            espressoIntents             : "androidx.test.espresso:espresso-intents:${xEspressoVersion}",                                // rootProject.ext.testLibraries.espressoIntents
-            espressoContrib             : "androidx.test.espresso:espresso-contrib:${xEspressoVersion}",                                // rootProject.ext.testLibraries.espressoContrib
+            junit                       : "junit:junit:${junitVersion}",
+            xJunit                      : "androidx.test.ext:junit:${xJunitVersion}",
+            xJunitKtx                   : "androidx.test.ext:junit-ktx:${xJunitVersion}",
+            testRules                   : "androidx.test:rules:${testRulesVersion}",
+            testRunner                  : "androidx.test:runner:${testRunnerVersion}",
+            xTruth                      : "androidx.test.ext:truth:${xTruthVersion}",
+            uiautomator                 : "androidx.test.uiautomator:uiautomator:${XAndroidSupportUiautomatorVersion}",
+            espressoCore                : "androidx.test.espresso:espresso-core:${xEspressoVersion}",
+            espressoIntents             : "androidx.test.espresso:espresso-intents:${xEspressoVersion}",
+            espressoContrib             : "androidx.test.espresso:espresso-contrib:${xEspressoVersion}",
     ]
 }

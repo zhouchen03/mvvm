@@ -1,4 +1,6 @@
+apply from: "../library_build.gradle"
 apply from: "../ui_build.gradle"
+
 
 android {
     buildFeatures {
@@ -8,7 +10,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation                  project(':datalayer')
+    implementation                  project(':ui')
+    api                             project(':datalayer')
 
     // LiveData & ViewModel
     implementation                  rootProject.ext.libraries.lifecycle

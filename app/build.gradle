@@ -34,7 +34,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -76,12 +76,14 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+
+    dynamicFeatures = [':activity']
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation                  project(':activity')
-    implementation                  project(':repository')
+    api                             project(':base')
+    api                             project(':repository')
 
     implementation                  rootProject.ext.libraries.kotlinStdlib
     implementation                  rootProject.ext.libraries.androidxCore
@@ -90,6 +92,8 @@ dependencies {
 
     implementation                  rootProject.ext.libraries.room
     kapt                            rootProject.ext.libraries.roomCompiler
+    // LiveData & ViewModel
+    implementation                  rootProject.ext.libraries.lifecycle
 
     implementation                  rootProject.ext.libraries.rxandroid
     implementation                  rootProject.ext.libraries.rxjava
@@ -109,6 +113,8 @@ dependencies {
     kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler
     androidTestImplementation       rootProject.ext.testLibraries.xJunit
     androidTestImplementation       rootProject.ext.testLibraries.xJunitKtx
+    androidTestImplementation       rootProject.ext.testLibraries.testRules
+    androidTestImplementation       rootProject.ext.testLibraries.testRunner
     androidTestImplementation       rootProject.ext.testLibraries.xTruth
     androidTestImplementation       rootProject.ext.testLibraries.espressoCore
     androidTestImplementation       rootProject.ext.testLibraries.espressoIntents

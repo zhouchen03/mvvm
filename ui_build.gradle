@@ -1,5 +1,3 @@
-apply from: "../library_build.gradle"
-
 android {
     defaultConfig {
         testInstrumentationRunner "com.zhouchen.test.TestAppInjectingRunner"
@@ -9,7 +7,9 @@ android {
         androidTest {
             java.srcDirs += [
                     'src/androidTest/kotlin',
-                    'src/androidTest/java'
+                    'src/androidTest/java',
+                    '../app/src/androidTest/kotlin',
+                    '../app/src/androidTest/java'
             ]
         }
     }
@@ -31,7 +31,10 @@ dependencies {
     kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler
     androidTestImplementation       rootProject.ext.testLibraries.xJunit
     androidTestImplementation       rootProject.ext.testLibraries.xJunitKtx
+    androidTestImplementation       rootProject.ext.testLibraries.testRules
+    androidTestImplementation       rootProject.ext.testLibraries.testRunner
     androidTestImplementation       rootProject.ext.testLibraries.xTruth
+    androidTestImplementation       rootProject.ext.testLibraries.uiautomator
     androidTestImplementation       rootProject.ext.testLibraries.espressoCore
     androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
     androidTestImplementation       rootProject.ext.testLibraries.espressoContrib

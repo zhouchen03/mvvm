@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -37,15 +37,11 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
             testCoverageEnabled (project.hasProperty('coverage'))
             //Crashlytics will generate a new build id for every build.
             //This can (and should) be disabled for debug build
             ext.alwaysUpdateBuildId = false
             ext.enableCrashlytics = false
-        }
-        release {
-            minifyEnabled true
         }
     }
 

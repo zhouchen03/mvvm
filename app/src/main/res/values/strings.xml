@@ -1,3 +1,4 @@
-<resources>
-    <string name="app_name">My Application</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">MVVM</string>
+    <string name="dynamic_feature_scrolling" tools:ignore="ExtraTranslation">Feature Activity</string>
 </resources>
