@@ -14,5 +14,7 @@ dependencies {
     api                             project(':datalayer')
 
     // LiveData & ViewModel
-    implementation                  rootProject.ext.libraries.lifecycle
+    implementation                  rootProject.ext.lifecycle.runtime
+    implementation                  rootProject.ext.lifecycle.viewmodel_ktx
+    implementation                  rootProject.ext.lifecycle.livedata_ktx
 }

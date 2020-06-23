@@ -12,8 +12,4 @@ dependencies {
     //feature depends on app
     implementation                  project(':app')
 
-    // LiveData & ViewModel
-    implementation                  rootProject.ext.libraries.lifecycle
-
-    androidTestImplementation       rootProject.ext.libraries.retrofit
 }

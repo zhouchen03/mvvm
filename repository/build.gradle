@@ -4,8 +4,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     api                             project(':datalayer')
 
-    implementation                  rootProject.ext.libraries.room
-    kapt                            rootProject.ext.libraries.roomCompiler
+    implementation                  rootProject.ext.room.runtime
+    implementation                  rootProject.ext.room.ktx
+    implementation                  rootProject.ext.room.rxjava2
+    kapt                            rootProject.ext.room.compiler
+    testImplementation              rootProject.ext.room.testing
 
     // Retrofit
     implementation                  rootProject.ext.libraries.retrofit
@@ -13,5 +16,10 @@ dependencies {
     implementation                  rootProject.ext.libraries.retrofitConverter
     implementation                  rootProject.ext.libraries.okhttp
     implementation                  rootProject.ext.libraries.gson
+
+    // LiveData & ViewModel
+    implementation                  rootProject.ext.lifecycle.runtime
+    implementation                  rootProject.ext.coroutines.android
+    implementation                  rootProject.ext.lifecycle.livedata_ktx
 
 }

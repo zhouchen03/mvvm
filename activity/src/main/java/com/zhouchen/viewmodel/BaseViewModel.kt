@@ -2,12 +2,12 @@ package com.zhouchen.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.zhouchen.base.ui.IApp
-import com.zhouchen.di.component.DaggerViewModelComponent
-import com.zhouchen.di.component.ViewModelComponent
+import com.zhouchen.di.component.DaggerSampleViewModelComponent
+import com.zhouchen.di.component.SampleViewModelComponent
 
 
 abstract class BaseViewModel(app: IApp): ViewModel(){
-    private val injector: ViewModelComponent = DaggerViewModelComponent
+    private val injector: SampleViewModelComponent = DaggerSampleViewModelComponent
             .builder()
             .appSubcomponent(app.getAppSubcomponent())
             .build()

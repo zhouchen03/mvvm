@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.zhouchen.activity.ScrollingActivity"
+            android:name="com.zhouchen.activity.LiveDataActivity"
             android:label="main activity"
             android:splitName="activity"
             android:theme="@style/AppTheme.NoActionBar" >

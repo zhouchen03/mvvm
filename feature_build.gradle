@@ -11,6 +11,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -49,20 +53,21 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation                  rootProject.ext.libraries.kotlinStdlib
-    implementation                  rootProject.ext.libraries.androidxCore
-    implementation                  rootProject.ext.libraries.rxjava
-    implementation                  rootProject.ext.libraries.rxandroid
-
-    // Dagger 2 core
-    implementation                  rootProject.ext.libraries.dagger
+    kapt                            rootProject.ext.room.compiler
     kapt                            rootProject.ext.annotationLibraries.daggerCompiler
-
-    // Dagger 2 android
-    implementation                  rootProject.ext.libraries.daggerAndroid
-    implementation                  rootProject.ext.libraries.daggerAndroidSupport
     kapt                            rootProject.ext.annotationLibraries.daggerAndroidProcessor
 
-    testImplementation              rootProject.ext.testLibraries.junit
+    kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler
+    androidTestImplementation       rootProject.ext.testLibraries.xJunit
+    androidTestImplementation       rootProject.ext.testLibraries.xJunitKtx
+    androidTestImplementation       rootProject.ext.testLibraries.testRules
+    androidTestImplementation       rootProject.ext.testLibraries.testRunner
+    androidTestImplementation       rootProject.ext.testLibraries.xTruth
+    androidTestImplementation       rootProject.ext.libraries.retrofit
+    androidTestImplementation       rootProject.ext.testLibraries.espressoCore
+    androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
+    androidTestImplementation       rootProject.ext.testLibraries.espressoContrib
 
+    testImplementation              rootProject.ext.testLibraries.junit
+    testImplementation              rootProject.ext.room.testing
 }

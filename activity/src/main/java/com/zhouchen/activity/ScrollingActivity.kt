@@ -6,7 +6,7 @@ import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,7 +41,7 @@ class ScrollingActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_scrolling)
         binding.sampleList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(mApp)).get(SampleListViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelFactory(mApp)).get(SampleListViewModel::class.java)
         viewModel.errorMessage.observe(this, Observer {
                 errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
         })

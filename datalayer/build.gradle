@@ -2,6 +2,9 @@ apply from: "../library_build.gradle"
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation                  rootProject.ext.libraries.room
-    kapt                            rootProject.ext.libraries.roomCompiler
+    implementation                  rootProject.ext.room.runtime
+    implementation                  rootProject.ext.room.ktx
+    implementation                  rootProject.ext.room.rxjava2
+    kapt                            rootProject.ext.room.compiler
+    testImplementation              rootProject.ext.room.testing
 }

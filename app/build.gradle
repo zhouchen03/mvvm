@@ -11,6 +11,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "com.zhouchen.application"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -85,30 +89,36 @@ dependencies {
     api                             project(':base')
     api                             project(':repository')
 
-    implementation                  rootProject.ext.libraries.kotlinStdlib
-    implementation                  rootProject.ext.libraries.androidxCore
-    implementation                  rootProject.ext.libraries.appCompat
-    implementation                  rootProject.ext.libraries.materialDesign
+    api                             rootProject.ext.libraries.kotlinStdlib
+    api                             rootProject.ext.libraries.androidxCore
+    api                             rootProject.ext.libraries.androidxActivity
+    api                             rootProject.ext.libraries.appCompat
+    api                             rootProject.ext.libraries.materialDesign
 
-    implementation                  rootProject.ext.libraries.room
-    kapt                            rootProject.ext.libraries.roomCompiler
+    api                             rootProject.ext.room.runtime
+    api                             rootProject.ext.room.ktx
+    api                             rootProject.ext.room.rxjava2
+    kapt                            rootProject.ext.room.compiler
+
     // LiveData & ViewModel
-    implementation                  rootProject.ext.libraries.lifecycle
+    api                             rootProject.ext.coroutines.android
+    api                             rootProject.ext.lifecycle.runtime
+    api                             rootProject.ext.lifecycle.lifecycle_ext
+    api                             rootProject.ext.lifecycle.viewmodel_ktx
+    api                             rootProject.ext.lifecycle.livedata_ktx
 
-    implementation                  rootProject.ext.libraries.rxandroid
-    implementation                  rootProject.ext.libraries.rxjava
-    implementation                  rootProject.ext.libraries.retrofit
+    api                             rootProject.ext.libraries.rxandroid
+    api                             rootProject.ext.libraries.rxjava
+    api                             rootProject.ext.libraries.retrofit
 
     // Dagger 2 core
-    implementation                  rootProject.ext.libraries.dagger
+    api                             rootProject.ext.libraries.dagger
     kapt                            rootProject.ext.annotationLibraries.daggerCompiler
 
     // Dagger 2 android
-    implementation                  rootProject.ext.libraries.daggerAndroid
-    implementation                  rootProject.ext.libraries.daggerAndroidSupport
+    api                             rootProject.ext.libraries.daggerAndroid
+    api                             rootProject.ext.libraries.daggerAndroidSupport
     kapt                            rootProject.ext.annotationLibraries.daggerAndroidProcessor
-
-    testImplementation              rootProject.ext.testLibraries.junit
 
     kaptAndroidTest                 rootProject.ext.annotationLibraries.daggerCompiler
     androidTestImplementation       rootProject.ext.testLibraries.xJunit
@@ -116,8 +126,13 @@ dependencies {
     androidTestImplementation       rootProject.ext.testLibraries.testRules
     androidTestImplementation       rootProject.ext.testLibraries.testRunner
     androidTestImplementation       rootProject.ext.testLibraries.xTruth
+    androidTestImplementation       rootProject.ext.libraries.retrofit
     androidTestImplementation       rootProject.ext.testLibraries.espressoCore
     androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
     androidTestImplementation       rootProject.ext.testLibraries.espressoContrib
+
+    testImplementation              rootProject.ext.testLibraries.junit
+    testImplementation              rootProject.ext.room.testing
+    testImplementation              rootProject.ext.coroutines.test
 
 }
