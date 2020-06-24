@@ -28,8 +28,15 @@ android {
 
         test {
             java.srcDirs += [
-                    'src/test/kotlin',
-                    'src/test/java'
+                'src/test/kotlin',
+                'src/test/java'
+            ]
+        }
+
+        androidTest {
+            java.srcDirs += [
+                'src/androidTest/java',
+                'src/androidTest/kotlin'
             ]
         }
     }
@@ -53,6 +60,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    //feature depends on app
+    implementation                  project(':app')
+    androidTestImplementation       project(':app')
+    androidTestImplementation       rootProject.ext.libraries.playcore
+
     kapt                            rootProject.ext.room.compiler
     kapt                            rootProject.ext.annotationLibraries.daggerCompiler
     kapt                            rootProject.ext.annotationLibraries.daggerAndroidProcessor

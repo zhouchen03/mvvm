@@ -4,7 +4,8 @@ ext {
     targetSdkVersion                    = 28
     gradleVersion                       = "4.0.0"
     kotlinVersion                       = "1.3.72"
-
+    playcoreVersion                     = "1.6.4"
+    
     versionCode                         = 1
     versionName                         = "1.0.0"
 
@@ -50,6 +51,7 @@ ext {
     XAndroidSupportUiautomatorVersion   = "2.2.0"
 
     libraries = [
+            playcore                    : "com.google.android.play:core:${playcoreVersion}",
             kotlinStdlib                : "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}",
             androidxCore                : "androidx.core:core-ktx:${androidxCoreVersion}",
             androidxActivity            : "androidx.activity:activity-ktx:${androidxActivityVersion}",

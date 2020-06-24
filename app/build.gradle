@@ -50,16 +50,21 @@ android {
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += [
+                'src/main/kotlin',
+                'src/main/java'
+        ]
 
         test {
             java.srcDirs += [
-                    'src/test/kotlin'
+                    'src/test/kotlin',
+                    'src/test/java'
             ]
         }
 
         androidTest {
             java.srcDirs += [
+                    'src/androidTest/java',
                     'src/androidTest/kotlin'
             ]
         }
@@ -81,7 +86,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
-    dynamicFeatures = [':activity']
+    dynamicFeatures = [':feature_sample']
 }
 
 dependencies {
@@ -89,6 +94,7 @@ dependencies {
     api                             project(':base')
     api                             project(':repository')
 
+    api                             rootProject.ext.libraries.playcore
     api                             rootProject.ext.libraries.kotlinStdlib
     api                             rootProject.ext.libraries.androidxCore
     api                             rootProject.ext.libraries.androidxActivity

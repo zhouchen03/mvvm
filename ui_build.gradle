@@ -7,9 +7,7 @@ android {
         androidTest {
             java.srcDirs += [
                     'src/androidTest/kotlin',
-                    'src/androidTest/java',
-                    '../app/src/androidTest/kotlin',
-                    '../app/src/androidTest/java'
+                    'src/androidTest/java'
             ]
         }
     }

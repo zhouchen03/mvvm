@@ -10,10 +10,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation                  project(':ui')
     api                             project(':datalayer')
 
     // LiveData & ViewModel
+    implementation                  rootProject.ext.libraries.playcore
     implementation                  rootProject.ext.lifecycle.runtime
     implementation                  rootProject.ext.lifecycle.viewmodel_ktx
     implementation                  rootProject.ext.lifecycle.livedata_ktx

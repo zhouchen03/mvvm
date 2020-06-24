@@ -19,7 +19,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.zhouchen.viewmodel.LiveDataViewModel" />
+            type="com.zhouchen.application.sample.viewmodel.LiveDataViewModel" />
     </data>
 
     <LinearLayout
@@ -120,5 +120,12 @@
             android:layout_height="56dp"
             android:onClick="@{() -> viewmodel.onRefresh()}"
             android:text="@string/refresh_label" />
+        <Button
+            android:id="@+id/sample_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="48dp"
+            android:onClick="launchSampleFeature"
+            android:text="@string/launch_feature" />
     </LinearLayout>
 </layout>

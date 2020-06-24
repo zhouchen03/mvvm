@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Placeholders. Implementations in application. -->
-    <style name="AppTheme"/>
-    <style name="AppTheme.NoActionBar"/>
-    <style name="AppTheme.AppBarOverlay"/>
-    <style name="AppTheme.PopupOverlay"/>
-</resources>

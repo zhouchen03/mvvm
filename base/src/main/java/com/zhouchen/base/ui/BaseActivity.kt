@@ -1,7 +1,9 @@
 package com.zhouchen.base.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.play.core.splitcompat.SplitCompat
 import com.zhouchen.base.di.subcomponent.AppSubcomponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -34,5 +36,11 @@ abstract class BaseActivity: AppCompatActivity(), HasAndroidInjector {
         // inject as a subcomponent
         createComponent()
         super.onCreate(savedInstanceState)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val ctx = LanguageHelper.getLanguageConfigurationContext(newBase)
+        super.attachBaseContext(ctx)
+        SplitCompat.installActivity(this)
     }
 }

@@ -1,0 +1,18 @@
+<manifest package="com.zhouchen.application.sample"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <dist:module
+        dist:onDemand="true"
+        dist:title="@string/dynamic_feature_scrolling">
+        <dist:fusing dist:include="true" />
+    </dist:module>
+
+    <application>
+        <activity android:name="com.zhouchen.application.sample.activity.ScrollingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
