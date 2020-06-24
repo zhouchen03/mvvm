@@ -1,7 +1,6 @@
 package com.zhouchen.test.di.module
 
 import android.content.Context
-import com.zhouchen.application.App
 import com.zhouchen.application.Config
 import com.zhouchen.base.di.scopes.AppScope
 import com.zhouchen.base.di.subcomponent.AppSubcomponent
@@ -20,13 +19,13 @@ import dagger.Provides
 class TestAppModule {
     @Provides
     @AppScope
-    fun provideContext(application: TestApp): Context {
+    fun provideContext(application: com.zhouchen.test.TestApp): Context {
         return application.applicationContext
     }
 
     @Provides
     @AppScope
-    fun provideApp(application: TestApp): IApp {
+    fun provideApp(application: com.zhouchen.test.TestApp): IApp {
         return application
     }
 

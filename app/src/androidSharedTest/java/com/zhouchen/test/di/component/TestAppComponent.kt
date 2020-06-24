@@ -17,7 +17,7 @@ interface TestAppComponent : AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: TestApp): Builder
+        fun application(application: com.zhouchen.test.TestApp): Builder
         fun build(): TestAppComponent
     }
 
@@ -26,5 +26,5 @@ interface TestAppComponent : AppComponent {
     //TestAppComponent extends from the AppComponent
     //TestAppComponent needs to define Mocked provider when necessary
 
-    fun inject(app: TestApp)
+    fun inject(app: com.zhouchen.test.TestApp)
 }

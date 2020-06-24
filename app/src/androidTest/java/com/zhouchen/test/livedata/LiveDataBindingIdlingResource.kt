@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zhouchen.test.idleresource
+package com.zhouchen.test.livedata
 
 import android.view.View
 import androidx.databinding.DataBindingUtil

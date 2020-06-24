@@ -25,7 +25,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zhouchen.activity.LiveDataActivity
 import com.zhouchen.application.R
-import com.zhouchen.test.idleresource.DataBindingIdlingResource
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -45,7 +44,10 @@ class LiveDataActivityTest {
 
     @Before
     fun registerIdlingResources() {
-        dataBindingIdlingResource = DataBindingIdlingResource(activityScenarioRule)
+        dataBindingIdlingResource =
+            DataBindingIdlingResource(
+                activityScenarioRule
+            )
         IdlingRegistry.getInstance().register(dataBindingIdlingResource)
     }
 

@@ -1,6 +1,8 @@
 package com.zhouchen.activity
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -11,9 +13,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.zhouchen.application.sample.R
 import com.zhouchen.application.sample.activity.SampleListAdapter
 import com.zhouchen.application.sample.activity.ScrollingActivity
+import com.zhouchen.test.resource.BindingIdlingResource
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,9 +31,24 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ScrollingActivityTest {
     @get:Rule
-    val rule = ActivityScenarioRule(ScrollingActivity::class.java)
+    val activityScenarioRule = ActivityScenarioRule(ScrollingActivity::class.java)
 
+    private lateinit var dataBindingIdlingResource: IdlingResource
     private val item_position = 4
+
+    @Before
+    fun registerIdlingResources() {
+        dataBindingIdlingResource =
+            BindingIdlingResource(
+                activityScenarioRule
+            )
+        IdlingRegistry.getInstance().register(dataBindingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResources() {
+        IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
+    }
 
     @Test
     fun launchScrollingActivity() {

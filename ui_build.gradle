@@ -6,8 +6,8 @@ android {
     sourceSets {
         androidTest {
             java.srcDirs += [
-                    'src/androidTest/kotlin',
-                    'src/androidTest/java'
+                    'src/androidSharedTest/kotlin',
+                    'src/androidSharedTest/java'
             ]
         }
     }

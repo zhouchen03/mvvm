@@ -65,7 +65,9 @@ android {
         androidTest {
             java.srcDirs += [
                     'src/androidTest/java',
-                    'src/androidTest/kotlin'
+                    'src/androidTest/kotlin',
+                    'src/androidSharedTest/java',
+                    'src/androidSharedTest/kotlin'
             ]
         }
     }
