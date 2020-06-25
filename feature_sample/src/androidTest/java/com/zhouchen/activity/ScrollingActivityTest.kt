@@ -53,11 +53,8 @@ class ScrollingActivityTest {
     @Test
     fun launchScrollingActivity() {
        onView(withId(R.id.sample_list))
-           .perform(RecyclerViewActions.scrollToHolder(isLast()))
+           .perform(RecyclerViewActions.scrollToPosition<SampleListAdapter.ViewHolder>(item_position))
            .check(matches(isDisplayed()))
-
-        onView(withId(R.id.sample_list))
-            .perform(RecyclerViewActions.actionOnItemAtPosition<SampleListAdapter.ViewHolder>(item_position, click()))
     }
 
     private fun isLast(): Matcher<SampleListAdapter.ViewHolder> {

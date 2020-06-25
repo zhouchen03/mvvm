@@ -1,11 +1,11 @@
 package com.zhouchen.application.sample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.zhouchen.base.ui.IApp
+import androidx.lifecycle.ViewModel
 import com.zhouchen.base.utils.getFormatedDate
 import com.zhouchen.datalayer.model.Sample
 
-class SampleViewModel(app : IApp): BaseViewModel(app){
+class SampleViewModel: ViewModel() {
     private val title = MutableLiveData<String>()
     private val ingress = MutableLiveData<String>()
     private  val image = MutableLiveData<String>()

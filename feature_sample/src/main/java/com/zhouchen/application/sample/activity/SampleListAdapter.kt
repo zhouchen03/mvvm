@@ -6,17 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zhouchen.application.sample.R
 import com.zhouchen.application.sample.databinding.ItemSampleBinding
-import com.zhouchen.base.ui.IApp
 import com.zhouchen.datalayer.model.Sample
 import com.zhouchen.application.sample.viewmodel.SampleViewModel
 
-class SampleListAdapter(private val app : IApp): RecyclerView.Adapter<SampleListAdapter.ViewHolder>() {
+class SampleListAdapter: RecyclerView.Adapter<SampleListAdapter.ViewHolder>() {
     private lateinit var sampleList:List<Sample>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemSampleBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_sample, parent, false)
         return ViewHolder(
-            app,
             binding
         )
     }
@@ -35,8 +33,8 @@ class SampleListAdapter(private val app : IApp): RecyclerView.Adapter<SampleList
         notifyDataSetChanged()
     }
 
-    class ViewHolder(app : IApp, private val binding: ItemSampleBinding):RecyclerView.ViewHolder(binding.root){
-        private val viewModel = SampleViewModel(app)
+    class ViewHolder(private val binding: ItemSampleBinding):RecyclerView.ViewHolder(binding.root){
+        private val viewModel = SampleViewModel()
         private var mLast: Boolean = false
 
         fun bind(sample:Sample){

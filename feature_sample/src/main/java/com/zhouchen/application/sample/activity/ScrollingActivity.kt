@@ -16,16 +16,16 @@ import com.zhouchen.application.sample.databinding.ActivityScrollingBinding
 import com.zhouchen.application.sample.di.component.DaggerScrollingActivityComponent
 import com.zhouchen.application.sample.viewmodel.SampleListViewModel
 import com.zhouchen.base.ui.BaseActivity
-import com.zhouchen.base.ui.IApp
 import com.zhouchen.application.sample.viewmodel.ViewModelFactory
+import com.zhouchen.datalayer.api.IAccess
 import javax.inject.Inject
 
 class ScrollingActivity : BaseActivity() {
     @Inject
-    lateinit var mApp : IApp
+    lateinit var access : IAccess
 
     private lateinit var binding: ActivityScrollingBinding
-    private val viewModel: SampleListViewModel by viewModels { ViewModelFactory(mApp) }
+    private val viewModel: SampleListViewModel by viewModels { ViewModelFactory(access) }
     private var errorSnackbar: Snackbar? = null
 
     override fun createComponent() {
