@@ -19,7 +19,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.zhouchen.application.sample.viewmodel.LiveDataViewModel" />
+            type="com.zhouchen.viewmodel.LiveDataViewModel" />
     </data>
 
     <LinearLayout

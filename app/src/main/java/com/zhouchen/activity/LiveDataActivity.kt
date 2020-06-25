@@ -25,16 +25,24 @@ import com.zhouchen.application.databinding.ActivityLivedataBinding
 import com.zhouchen.application.di.component.DaggerLiveDataActivityComponent
 import com.zhouchen.base.ui.BaseActivity
 import com.zhouchen.base.ui.IApp
-import com.zhouchen.application.sample.viewmodel.LiveDataVMFactory
-import com.zhouchen.application.sample.viewmodel.LiveDataViewModel
+import com.zhouchen.datalayer.api.IAccess
+import com.zhouchen.viewmodel.LiveDataVMFactory
+import com.zhouchen.viewmodel.LiveDataViewModel
 import javax.inject.Inject
 
 class LiveDataActivity : BaseActivity() {
     @Inject
     lateinit var mApp : IApp
 
+    @Inject
+    lateinit var mAccess: IAccess
+
     // Obtain ViewModel
-    private val viewmodel: LiveDataViewModel by viewModels { LiveDataVMFactory(mApp) }
+    private val viewmodel: LiveDataViewModel by viewModels {
+        LiveDataVMFactory(
+            mAccess
+        )
+    }
 
     override fun createComponent() {
         DaggerLiveDataActivityComponent
