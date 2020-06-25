@@ -72,5 +72,6 @@ dependencies {
     kapt                            rootProject.ext.annotationLibraries.daggerAndroidProcessor
 
     testImplementation              rootProject.ext.testLibraries.junit
+    testImplementation              rootProject.ext.testLibraries.archcore
 
 }
