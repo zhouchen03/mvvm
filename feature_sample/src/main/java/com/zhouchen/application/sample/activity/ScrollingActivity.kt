@@ -50,6 +50,7 @@ class ScrollingActivity : BaseActivity() {
         binding.lifecycleOwner = this
         // Bind ViewModel
         binding.viewmodel = viewModel
+        viewModel.loadSamples()
 
         setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title

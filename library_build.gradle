@@ -73,5 +73,5 @@ dependencies {
 
     testImplementation              rootProject.ext.testLibraries.junit
     testImplementation              rootProject.ext.testLibraries.archcore
-
+    testImplementation              rootProject.ext.testLibraries.mockitocore
 }

@@ -2,21 +2,14 @@ package com.zhouchen.application.sample.viewmodel
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.zhouchen.application.sample.R
 import com.zhouchen.application.sample.activity.SampleListAdapter
-import com.zhouchen.base.ui.IApp
 import com.zhouchen.datalayer.api.IAccess
 import com.zhouchen.datalayer.model.Sample
 import io.reactivex.disposables.Disposable
-import javax.inject.Inject
 
-class SampleListViewModel(app : IApp): BaseViewModel(app){
-
-    @Inject
-    lateinit var mAccess: IAccess
-
-    val sampleListAdapter: SampleListAdapter =
-        SampleListAdapter(app)
+open class SampleListViewModel(private val access : IAccess, private val adapter: SampleListAdapter): ViewModel() {
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage:MutableLiveData<Int> = MutableLiveData()
@@ -24,17 +17,16 @@ class SampleListViewModel(app : IApp): BaseViewModel(app){
 
     private lateinit var subscription: Disposable
 
-    init{
-        loadSamples()
-    }
-
     override fun onCleared() {
         super.onCleared()
         subscription.dispose()
     }
+    fun getSampleListAdapter(): SampleListAdapter {
+        return adapter
+    }
 
-    private fun loadSamples(){
-        subscription = mAccess.getSamples()
+    fun loadSamples(){
+        subscription = access.getSamples()
             .doOnSubscribe { onRetrieveSampleListStart() }
             .doOnTerminate { onRetrieveSampleListFinish() }
             .subscribe(
@@ -53,11 +45,11 @@ class SampleListViewModel(app : IApp): BaseViewModel(app){
     }
 
 
-    private fun onRetrieveSampleListSuccess(sampleList:List<Sample>){
-        sampleListAdapter.updateSampleList(sampleList)
+    fun onRetrieveSampleListSuccess(sampleList:List<Sample>) {
+        adapter.updateSampleList(sampleList)
     }
 
-    private fun onRetrieveSampleListError(){
+    fun onRetrieveSampleListError(){
         errorMessage.value = R.string.post_error
     }
 }

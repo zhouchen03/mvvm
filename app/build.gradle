@@ -138,8 +138,12 @@ dependencies {
     androidTestImplementation       rootProject.ext.testLibraries.espressoCore
     androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
     androidTestImplementation       rootProject.ext.testLibraries.espressoContrib
+    androidTestImplementation       rootProject.ext.testLibraries.archcore
 
     testImplementation              rootProject.ext.testLibraries.junit
+    testImplementation              rootProject.ext.testLibraries.archcore
+    testImplementation              rootProject.ext.testLibraries.mockitocore
+    testImplementation              rootProject.ext.testLibraries.kotlinTest
     testImplementation              rootProject.ext.room.testing
     testImplementation              rootProject.ext.coroutines.test
 

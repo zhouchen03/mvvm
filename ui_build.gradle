@@ -20,6 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
     implementation                  rootProject.ext.libraries.appCompat
     implementation                  rootProject.ext.libraries.cardview
     implementation                  rootProject.ext.libraries.recyclerview
@@ -32,8 +33,10 @@ dependencies {
     androidTestImplementation       rootProject.ext.testLibraries.testRules
     androidTestImplementation       rootProject.ext.testLibraries.testRunner
     androidTestImplementation       rootProject.ext.testLibraries.xTruth
-    androidTestImplementation       rootProject.ext.testLibraries.uiautomator
+    androidTestImplementation       rootProject.ext.libraries.retrofit
     androidTestImplementation       rootProject.ext.testLibraries.espressoCore
     androidTestImplementation       rootProject.ext.testLibraries.espressoIntents
     androidTestImplementation       rootProject.ext.testLibraries.espressoContrib
+    androidTestImplementation       rootProject.ext.libraries.playcore
+    androidTestImplementation       rootProject.ext.testLibraries.archcore
 }

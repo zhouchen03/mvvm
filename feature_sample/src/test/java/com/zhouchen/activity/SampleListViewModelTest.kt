@@ -25,6 +25,7 @@ import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
@@ -44,24 +45,24 @@ class SampleListViewModelTest {
     @Mock
     private lateinit var adapter: SampleListAdapter
 
-    private lateinit var viewModel: SampleListViewModel
     private val fakeList : ArrayList<Sample> = ArrayList()
 
     @Before
     fun setUp() {
+        //init mock
         MockitoAnnotations.initMocks(this)
         fakeList.add(Sample(1, "title", "time", "ingress", "image", 1.0, 1.0))
-        viewModel = SampleListViewModel(dataSource, adapter)
     }
 
     @Test
-    fun getUserName_whenNoUserSaved() {
+    fun test_updateSampleList() {
+        val viewModel = spy(SampleListViewModel(dataSource, adapter))
         // Given that the UserDataSource returns test samples
         `when`(dataSource.getSamples()).thenReturn(Observable.fromCallable { fakeList })
-        doNothing().`when`(adapter).updateSampleList(fakeList)
-        //When getting the user name
+//        doNothing().`when`(adapter.updateSampleList(anyList()))
+
         viewModel.loadSamples()
-        verify(adapter, times(1)).updateSampleList(fakeList)
+//        verify(viewModel, times(1)).onRetrieveSampleListSuccess(fakeList)
     }
 
 }

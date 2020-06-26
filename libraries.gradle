@@ -41,6 +41,7 @@ ext {
     // Testing
     junitVersion                        = "4.12"
     archcoreVersion                     = "2.1.0"
+    mockitocoreVersion                  = "2.19.0"
 
     // Android Espresso test versions
     xJunitVersion                       = "1.1.1"
@@ -108,6 +109,9 @@ ext {
     testLibraries = [
             junit                       : "junit:junit:${junitVersion}",
             archcore                    : "androidx.arch.core:core-testing:${archcoreVersion}",
+            mockitocore                 : "org.mockito:mockito-core:${mockitocoreVersion}",
+            kotlinTest                  : "org.jetbrains.kotlin:kotlin-test-junit:${kotlinVersion}",
+
             xJunit                      : "androidx.test.ext:junit:${xJunitVersion}",
             xJunitKtx                   : "androidx.test.ext:junit-ktx:${xJunitVersion}",
             testRules                   : "androidx.test:rules:${testRulesVersion}",
