@@ -21,7 +21,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 
-open class AccessImpl : IAccess {
+class AccessImpl : IAccess {
     @Inject
     lateinit var mSampleDao: SampleDao
     @Inject

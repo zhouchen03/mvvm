@@ -24,8 +24,7 @@ import com.zhouchen.datalayer.model.Sample
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
-import org.mockito.ArgumentMatchers
+import org.junit.Test import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
@@ -59,10 +58,10 @@ class SampleListViewModelTest {
         val viewModel = spy(SampleListViewModel(dataSource, adapter))
         // Given that the UserDataSource returns test samples
         `when`(dataSource.getSamples()).thenReturn(Observable.fromCallable { fakeList })
-//        doNothing().`when`(adapter.updateSampleList(anyList()))
+        doNothing().`when`(adapter).updateSampleList(anyList())
 
         viewModel.loadSamples()
-//        verify(viewModel, times(1)).onRetrieveSampleListSuccess(fakeList)
+        verify(viewModel, times(1)).onRetrieveSampleListSuccess(fakeList)
     }
 
 }

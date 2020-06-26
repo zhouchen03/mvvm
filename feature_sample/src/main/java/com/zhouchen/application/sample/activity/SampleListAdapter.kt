@@ -9,7 +9,7 @@ import com.zhouchen.application.sample.databinding.ItemSampleBinding
 import com.zhouchen.datalayer.model.Sample
 import com.zhouchen.application.sample.viewmodel.SampleViewModel
 
-open class SampleListAdapter: RecyclerView.Adapter<SampleListAdapter.ViewHolder>() {
+class SampleListAdapter: RecyclerView.Adapter<SampleListAdapter.ViewHolder>() {
     private lateinit var sampleList:List<Sample>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +28,7 @@ open class SampleListAdapter: RecyclerView.Adapter<SampleListAdapter.ViewHolder>
         return if(::sampleList.isInitialized) sampleList.size else 0
     }
 
-    fun updateSampleList(postList:List<Sample>) {
+    open fun updateSampleList(postList:List<Sample>) {
         this.sampleList = postList
         notifyDataSetChanged()
     }

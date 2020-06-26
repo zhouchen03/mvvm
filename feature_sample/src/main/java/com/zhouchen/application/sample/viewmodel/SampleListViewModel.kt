@@ -9,7 +9,7 @@ import com.zhouchen.datalayer.api.IAccess
 import com.zhouchen.datalayer.model.Sample
 import io.reactivex.disposables.Disposable
 
-open class SampleListViewModel(private val access : IAccess, private val adapter: SampleListAdapter): ViewModel() {
+class SampleListViewModel(private val access : IAccess, private val adapter: SampleListAdapter): ViewModel() {
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage:MutableLiveData<Int> = MutableLiveData()
