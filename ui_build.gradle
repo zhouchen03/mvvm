@@ -1,17 +1,4 @@
 android {
-    defaultConfig {
-        testInstrumentationRunner "com.zhouchen.test.TestAppInjectingRunner"
-    }
-
-    sourceSets {
-        androidTest {
-            java.srcDirs += [
-                    'src/androidSharedTest/kotlin',
-                    'src/androidSharedTest/java'
-            ]
-        }
-    }
-
     testOptions {
         animationsDisabled = true
         unitTests.includeAndroidResources = true

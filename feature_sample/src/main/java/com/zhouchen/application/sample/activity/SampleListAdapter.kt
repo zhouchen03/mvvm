@@ -28,7 +28,7 @@ class SampleListAdapter: RecyclerView.Adapter<SampleListAdapter.ViewHolder>() {
         return if(::sampleList.isInitialized) sampleList.size else 0
     }
 
-    open fun updateSampleList(postList:List<Sample>) {
+    fun updateSampleList(postList:List<Sample>) {
         this.sampleList = postList
         notifyDataSetChanged()
     }

@@ -122,4 +122,60 @@ ext {
             espressoIntents             : "androidx.test.espresso:espresso-intents:${xEspressoVersion}",
             espressoContrib             : "androidx.test.espresso:espresso-contrib:${xEspressoVersion}",
     ]
+
+    excludeAndroidTestFileTypes = ['**/R.class',
+                            '**/R$*.class',
+                            '**/BuildConfig.*',
+                            '**/Manifest*.*',
+                            '**/*Test*.*',
+                            'android/**/*.*',
+                            '**/*$ViewInjector*.*',
+                            '**/*Retrofit*.*',
+                            '**/*BR*.*',
+                            '**/*$Lambda$*.*',
+                            '**/*Parcelable.*',
+                            '**/*Dagger*.*',            // Dagger auto-generated code.
+                            '**/*MembersInjector*.*',   // Dagger auto-generated code.
+                            '**/*_Provide*Factory*.*',  // Dagger auto-generated code.
+                            '**/*_Factory*.*',
+                            '**/*Handler.class',        //spoofer handlers
+                            '**/di/**/*'
+
+    ]
+
+    excludeUnitTestFileTypes = ['**/R.class',
+                                '**/R$*.class',
+                                '**/BuildConfig.*',
+                                '**/Manifest*.*',
+                                '**/*Test*.*',
+                                'android/**/*.*',
+                                '**/*BR*.*',
+                                '**/*$Lambda$*.*',
+                                '**/*Parcelable.*',
+                                '**/*Dagger*.*',            // Dagger auto-generated code.
+                                '**/*MembersInjector*.*',   // Dagger auto-generated code.
+                                '**/*_Provide*Factory*.*',  // Dagger auto-generated code.
+                                '**/*_Factory*.*',
+                                '**/*Handler.class',        //spoofer handlers
+                                '**/di/**/*',
+                                '**/*Activity*.*',
+                                '**/*Fragment*.*',
+                                '**/*Popup*.*',
+                                '**/*Widget*.*',
+                                '**/*Layout*.*',
+                                '**/*Toolbar*.*',
+                                '**/*Menu*.*',
+                                '**/*OnClick*.*',
+                                '**/*OnTouch*.*',
+                                '**/*OnMenu*.*',
+                                '**/*Pager*.*',
+                                '**/*Button*.*',
+                                '**/*EditText*.*',
+                                '**/*SeekBar*.*',
+                                '**/*SlideBar*.*',
+                                '**/*Animator*.*',
+                                '**/*Transformer*.*',
+                                '**/*Image*.*',
+                                '**/*Drawable*.*'
+    ]
 }

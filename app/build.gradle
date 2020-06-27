@@ -37,6 +37,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            if (gradle.startParameter.taskNames.contains(":app:assembleDebugAndroidTest")) {
+                testProguardFile 'test.pro'
+            }
+            testCoverageEnabled (project.hasProperty('coverage'))
+        }
+
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

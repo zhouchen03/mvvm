@@ -21,10 +21,152 @@ buildscript {
 
 apply from: "./libraries.gradle"
 allprojects {
+    apply plugin: 'jacoco'
+    jacoco {
+        toolVersion = "0.8.5"
+    }
+    tasks.withType(Test) {
+        jacoco.includeNoLocationClasses = true
+    }
     repositories {
         google()
         jcenter()
     }
+}
+
+def unitTestsCoverageFile = "${project.buildDir}/jacoco/mergedReport.exec" // this file has all unit test coverage
+
+subprojects {
+    task jacocoUnitTestModuleReportDebug(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+        group = 'Reporting'
+        description = 'Generate Jacoco coverage reports after running tests.'
+
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+
+        // Getting all class files
+        def javaClasses = fileTree(dir: "$buildDir/intermediates/javac/debug/classes", excludes: rootProject.ext.excludeUnitTestFileTypes)
+        def kotlinClasses = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: rootProject.ext.excludeUnitTestFileTypes)
+        def classFiles = []
+        classFiles += files([javaClasses, kotlinClasses])
+        getClassDirectories().from(files(classFiles))
+
+        // Getting all source files for the module
+        def javaSource = fileTree(dir: "$projectDir/src/main/java")
+        def kotlinSource = fileTree(dir: "$projectDir/src/main/kotlin")
+        def sourceFiles = []
+        sourceFiles += files([javaSource, kotlinSource])
+        getSourceDirectories().from(files(sourceFiles))
+        getExecutionData().from("$buildDir/jacoco/testDebugUnitTest.exec")
+    }
+}
+
+task jacocoUnitTestMergedCoverageReport(type: JacocoReport) {
+    def sourceFiles = []
+    def classFiles = []
+    def jacocoReportFiles = []
+    subprojects.each { p ->
+        //java source files
+        def srcFileLoc = "$p.projectDir/src/main/java"
+        if (new File(srcFileLoc).exists()) {
+            sourceFiles << srcFileLoc
+        }
+
+        // Kotlin source files
+        srcFileLoc = "$p.projectDir/src/main/kotlin"
+        if (new File(srcFileLoc).exists()) {
+            sourceFiles << srcFileLoc
+        }
+
+        // Getting all class files
+        def javaClasses = fileTree(dir: "${p.buildDir}/intermediates/javac/debug/classes", excludes: rootProject.ext.excludeUnitTestFileTypes)
+        def kotlinClasses = fileTree(dir: "${p.buildDir}/tmp/kotlin-classes/debug", excludes: rootProject.ext.excludeUnitTestFileTypes)
+        classFiles += files([javaClasses, kotlinClasses])
+
+        def coverageFileLocation = "${p.buildDir}/jacoco/testDebugUnitTest.exec"
+        if (new File(coverageFileLocation).exists()) {
+            jacocoReportFiles << coverageFileLocation
+        }
+    }
+
+    getSourceDirectories().from(files(sourceFiles))
+    getClassDirectories().from(files(classFiles))
+
+
+    getExecutionData().from(jacocoReportFiles)
+
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+    }
+
+}
+
+task jacocoUnitTestMergeReportForAndroidTest(type: JacocoMerge) {
+    def jacocoReportFiles = []
+    subprojects.each { p ->
+        def coverageFileLocation = "${p.buildDir}/jacoco/testDebugUnitTest.exec"
+        if (new File(coverageFileLocation).exists()) {
+            jacocoReportFiles << coverageFileLocation
+        }
+    }
+
+    destinationFile = file(unitTestsCoverageFile)
+    executionData files(jacocoReportFiles)
+}
+
+
+task jacocoAutomationCoverageReport(type: JacocoReport) {
+
+    def sourceFiles = []
+    def classFiles = []
+    subprojects.each { p ->
+        //java source files
+        def srcFileLoc = "$p.projectDir/src/main/java"
+        if (new File(srcFileLoc).exists()) {
+            sourceFiles << srcFileLoc
+        }
+
+        // Kotlin source files
+        srcFileLoc = "$p.projectDir/src/main/kotlin"
+        if (new File(srcFileLoc).exists()) {
+            sourceFiles << srcFileLoc
+        }
+
+        // Getting all class files
+        def javaClasses = fileTree(dir: "${p.buildDir}/intermediates/javac/debug/classes", excludes: rootProject.ext.excludeAndroidTestFileTypes)
+        def kotlinClasses = fileTree(dir: "${p.buildDir}/tmp/kotlin-classes/debug", excludes: rootProject.ext.excludeAndroidTestFileTypes)
+        classFiles += files([javaClasses, kotlinClasses])
+    }
+
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+    }
+
+    getSourceDirectories().from(files(sourceFiles))
+    getClassDirectories().from(files(classFiles))
+
+//    def jacocoTestFiles = []
+//
+//    def automationTestsMergedCoverageFile = "${project(':app').buildDir}/spoon-output/debug/coverage/merged-coverage.ec" // this file is only available when espresso tests spoon task is finished
+//    def automationTestsCoverageFile = "${project(':app').buildDir}/spoon-output/debug/coverage.ec" // this file is only available when espresso tests spoon task gets stuck
+//    if (new File(automationTestsMergedCoverageFile).exists()) {
+//        jacocoTestFiles += files([automationTestsMergedCoverageFile])
+//    } else if (new File(automationTestsCoverageFile).exists()) {
+//        jacocoTestFiles += files([automationTestsCoverageFile])
+//    }
+//
+//    if (new File(unitTestsCoverageFile).exists()) {
+//        jacocoTestFiles += files([unitTestsCoverageFile])
+//    }
+//    logger.info('JaCoCo Coverage Files: {}', jacocoTestFiles)
+//    getExecutionData().from([jacocoTestFiles])
 }
 
 task clean(type: Delete) {
