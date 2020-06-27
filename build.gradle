@@ -120,10 +120,11 @@ task jacocoUnitTestMergeReportForAndroidTest(type: JacocoMerge) {
 }
 
 
-task jacocoAutomationCoverageReport(type: JacocoReport) {
+task jacocoAutomationCoverageReport(type: JacocoReport, dependsOn: 'jacocoUnitTestMergeReportForAndroidTest') {
 
     def sourceFiles = []
     def classFiles = []
+    def jacocoTestFiles = []
     subprojects.each { p ->
         //java source files
         def srcFileLoc = "$p.projectDir/src/main/java"
@@ -141,6 +142,15 @@ task jacocoAutomationCoverageReport(type: JacocoReport) {
         def javaClasses = fileTree(dir: "${p.buildDir}/intermediates/javac/debug/classes", excludes: rootProject.ext.excludeAndroidTestFileTypes)
         def kotlinClasses = fileTree(dir: "${p.buildDir}/tmp/kotlin-classes/debug", excludes: rootProject.ext.excludeAndroidTestFileTypes)
         classFiles += files([javaClasses, kotlinClasses])
+
+        // getting all android test reports
+        def automationTestsMergedCoverageFile = "${p.buildDir}/outputs/code_coverage/debugAndroidTest/connected/Pixel_3a_API_28(AVD) - 9-coverage.ec" // this file is only available when espresso tests spoon task is finished
+        def automationTestsCoverageFile = "${p.buildDir}/outputs/code_coverage/debugAndroidTest/connected/coverage.ec" // this file is only available when espresso tests spoon task gets stuck
+        if (new File(automationTestsMergedCoverageFile).exists()) {
+            jacocoTestFiles += files([automationTestsMergedCoverageFile])
+        } else if (new File(automationTestsCoverageFile).exists()) {
+            jacocoTestFiles += files([automationTestsCoverageFile])
+        }
     }
 
     reports {
@@ -152,21 +162,13 @@ task jacocoAutomationCoverageReport(type: JacocoReport) {
     getSourceDirectories().from(files(sourceFiles))
     getClassDirectories().from(files(classFiles))
 
-//    def jacocoTestFiles = []
-//
-//    def automationTestsMergedCoverageFile = "${project(':app').buildDir}/spoon-output/debug/coverage/merged-coverage.ec" // this file is only available when espresso tests spoon task is finished
-//    def automationTestsCoverageFile = "${project(':app').buildDir}/spoon-output/debug/coverage.ec" // this file is only available when espresso tests spoon task gets stuck
-//    if (new File(automationTestsMergedCoverageFile).exists()) {
-//        jacocoTestFiles += files([automationTestsMergedCoverageFile])
-//    } else if (new File(automationTestsCoverageFile).exists()) {
-//        jacocoTestFiles += files([automationTestsCoverageFile])
-//    }
-//
-//    if (new File(unitTestsCoverageFile).exists()) {
-//        jacocoTestFiles += files([unitTestsCoverageFile])
-//    }
-//    logger.info('JaCoCo Coverage Files: {}', jacocoTestFiles)
-//    getExecutionData().from([jacocoTestFiles])
+    // unit test report created by jacocoUnitTestMergeReportForAndroidTest
+    if (new File(unitTestsCoverageFile).exists()) {
+        jacocoTestFiles += files([unitTestsCoverageFile])
+    }
+    logger.info('JaCoCo Coverage Files: {}', jacocoTestFiles)
+    getExecutionData().from([jacocoTestFiles])
+
 }
 
 task clean(type: Delete) {

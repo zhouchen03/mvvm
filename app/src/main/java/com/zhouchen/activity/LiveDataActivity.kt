@@ -1,7 +1,6 @@
 package com.zhouchen.activity
 
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.activity.viewModels
 import com.zhouchen.application.FeatureManager
