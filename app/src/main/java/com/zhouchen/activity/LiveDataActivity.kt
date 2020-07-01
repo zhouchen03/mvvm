@@ -1,6 +1,7 @@
 package com.zhouchen.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.activity.viewModels
 import com.zhouchen.application.FeatureManager
@@ -51,7 +52,7 @@ class LiveDataActivity : BaseActivity() {
         binding.viewmodel = viewmodel
     }
 
-    fun launchSampleFeature() {
+    fun launchSampleFeature(view: View) {
         FeatureManager.loadAndLaunchModule(this, getString(R.string.dynamic_feature_scrolling))
     }
 }
