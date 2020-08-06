@@ -3,6 +3,8 @@ package com.zhouchen.repository.di.module
 import com.zhouchen.datalayer.api.IConfig
 import com.zhouchen.network.SampleApi
 import com.zhouchen.network.BuildConfig
+import com.zhouchen.network.Covid19Api
+import com.zhouchen.network.applyCallFactory
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
@@ -59,4 +61,23 @@ object NetworkModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build()
     }
+
+    @Provides
+    internal fun provideCovid19Api(): Covid19Api {
+        val client = OkHttpClient.Builder().apply {
+            if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                    addInterceptor(this)
+                }
+            }
+        }.build()
+        return Retrofit.Builder()
+            .baseUrl("https://localcoviddata.com/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .applyCallFactory { client.newCall(it) }
+            .build()
+            .create(Covid19Api::class.java)
+    }
 }
+

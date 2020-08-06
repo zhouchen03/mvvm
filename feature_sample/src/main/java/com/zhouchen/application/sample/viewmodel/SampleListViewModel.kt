@@ -25,6 +25,7 @@ class SampleListViewModel(private val access : IAccess, private val adapter: Sam
         return adapter
     }
 
+    //rxjava
     fun loadSamples(){
         subscription = access.getSamples()
             .doOnSubscribe { onRetrieveSampleListStart() }

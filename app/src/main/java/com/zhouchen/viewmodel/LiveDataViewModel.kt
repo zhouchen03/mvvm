@@ -1,11 +1,8 @@
 package com.zhouchen.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.zhouchen.datalayer.api.IAccess
+import com.zhouchen.event.Event
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -14,7 +11,6 @@ import java.util.Date
  * Showcases different patterns using the liveData coroutines builder.
  */
 class LiveDataViewModel(private val access: IAccess) : ViewModel() {
-
     // Exposed LiveData from a function that returns a LiveData generated with a liveData builder
     val currentTime = access.getCurrentTime()
 

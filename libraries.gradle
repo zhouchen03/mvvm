@@ -29,8 +29,8 @@ ext {
     roomVersion                         = "2.2.5"
     navigationVersion                   = "2.2.2"
 
-    retrofitVersion                     = "2.4.0"
-    okhttpVersion                       = "3.9.1"
+    retrofitVersion                     = "2.6.1"
+    okhttpVersion                       = "4.2.0"
     gsonVersion                         = "2.8.5"
 
     // Java
@@ -71,6 +71,8 @@ ext {
             retrofit                    : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitAdapter             : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             retrofitConverter           : "com.squareup.retrofit2:converter-moshi:${retrofitVersion}",
+            retofitGsonConverter        : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+
             okhttp                      : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
             gson                        : "com.google.code.gson:gson:${gsonVersion}",
 
