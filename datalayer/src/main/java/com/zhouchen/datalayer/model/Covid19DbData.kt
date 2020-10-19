@@ -16,7 +16,7 @@ data class CovidZip(
         val zipCd: String
 )
 
-@Entity(primaryKeys = ["countyName"])
+@Entity(primaryKeys = ["countyName", "date"])
 data class CountyData(
         val zipCode: String,
         @Embedded

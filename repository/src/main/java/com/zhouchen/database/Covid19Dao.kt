@@ -1,5 +1,6 @@
 package com.zhouchen.database
 
+import androidx.annotation.NonNull
 import androidx.room.*
 import com.zhouchen.datalayer.model.CountyData
 import com.zhouchen.datalayer.model.CovidZip
@@ -14,27 +15,25 @@ interface Covid19Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(listCounty: List<CountyData>)
 
-    @Delete
-    suspend fun delete(countyData: CovidZip)
-
-    @Query("DELETE FROM CovidZip")
-    suspend fun deleteAll()
+    @Transaction
+    @Query("DELETE FROM CovidZip WHERE `zipCd` = :zip")
+    suspend fun delete(@NonNull zip: String)
 
     @Transaction
     suspend fun deleteAllAndInsert(dbCovid19Data: DbCovid19Data) {
-        delete(dbCovid19Data.covidZip)
+        delete(dbCovid19Data.covidZip.zipCd)
         insert(dbCovid19Data.covidZip)
         insertList(dbCovid19Data.counties)
     }
 
     @Transaction
-    @Query("SELECT * FROM CovidZip")
-    suspend fun get(): DbCovid19Data?
+    @Query("SELECT * FROM CovidZip WHERE `zipCd` = :zip LIMIT 1")
+    suspend fun get(@NonNull zip: String): DbCovid19Data?
 
     /**
      * Use this to observe DB changes
      */
     @Transaction
-    @Query("SELECT * FROM CovidZip")
-    fun getFlow(): Flow<DbCovid19Data?>
+    @Query("SELECT * FROM CovidZip WHERE `zipCd` = :zip LIMIT 1")
+    fun getFlow(@NonNull zip: String): Flow<DbCovid19Data?>
 }

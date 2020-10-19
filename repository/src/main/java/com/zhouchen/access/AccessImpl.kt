@@ -8,11 +8,7 @@ import com.zhouchen.database.SampleDao
 import com.zhouchen.database.Covid19KeyValueDao
 import com.zhouchen.database.StringKeyValuePair
 import com.zhouchen.datalayer.api.IAccess
-import com.zhouchen.datalayer.model.Error
-import com.zhouchen.datalayer.model.Sample
-import com.zhouchen.datalayer.model.Success
-import com.zhouchen.datalayer.model.NoDataException
-import com.zhouchen.datalayer.model.NoResponseException
+import com.zhouchen.datalayer.model.*
 import com.zhouchen.network.applyCommonSideEffects
 import com.zhouchen.result.*
 import com.zhouchen.network.Covid19Api
@@ -29,6 +25,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
+import java.text.DateFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -37,6 +37,7 @@ class AccessImpl : IAccess {
     companion object {
         const val LAST_COVID19_API_CALL_TIMESTAMP = "last_covid19_api_call_timestamp"
         const val COVID19_CacheThresholdMillis = 3600000L       //1 hour//
+        const val DATE_FORMAT = "yyyy-MM-dd"
     }
 
     @Inject
@@ -138,12 +139,12 @@ class AccessImpl : IAccess {
     override fun getCovid19Data(zip: String, daysInPast: Int) = flow {
         mCovid19KeyValueDao.get(LAST_COVID19_API_CALL_TIMESTAMP)
             ?.takeIf { !shouldCallApi(it.value, COVID19_CacheThresholdMillis) }
-            ?.let { emit(getDataOrError(NoDataException())) }
+            ?.let { emit(getDataOrError(zip, NoDataException())) }
             ?: emit(getCovid19DataFromAPI(zip, daysInPast))
         }
         .applyCommonSideEffects()
         .catch {
-            emit(getDataOrError(it))
+            emit(getDataOrError(zip, it))
         }
 
     private fun shouldCallApi(
@@ -153,8 +154,24 @@ class AccessImpl : IAccess {
         return (System.currentTimeMillis() - lastApiCallMillis.toLong()) >= cacheThresholdInMillis
     }
 
-    private suspend fun getDataOrError(throwable: Throwable) =
-        mCovid19Dao.get()
+    private fun shouldCallApi(counties: List<CountyData>): Boolean {
+        if (counties != null && counties.isNotEmpty()) {
+            // Wed, 27-Mar-2019 21:26:18 GMT;
+            val df: DateFormat = SimpleDateFormat(DATE_FORMAT)
+            try {
+                val date = df.parse(counties[0].date)
+                val yesterday = Calendar.getInstance()
+                yesterday.add(Calendar.DAY_OF_YEAR, -1)
+                // is this date in the past?
+                return date.before(yesterday.time)
+            } catch (e: ParseException) {
+            }
+        }
+        return true
+    }
+
+    private suspend fun getDataOrError(zip: String, throwable: Throwable) =
+        mCovid19Dao.get(zip)
             ?.let { dbValue -> Success(dbValue) }
             ?: Error(throwable)
 
@@ -166,7 +183,7 @@ class AccessImpl : IAccess {
                         StringKeyValuePair(LAST_COVID19_API_CALL_TIMESTAMP, System.currentTimeMillis().toString())
                     )
                     mCovid19Dao.deleteAllAndInsert(Covid19Mapper(body()!!).map())
-                    getDataOrError(NoDataException())
+                    getDataOrError(zip, NoDataException())
                 } else {
                     Error(NoResponseException())
                 }
